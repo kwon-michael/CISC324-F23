@@ -33,6 +33,7 @@ def main(n = None):
 
     # Create a child process
     pid = os.fork()
+    print("pid=", pid)
 
     # If the fork failed
     if pid < 0:
