@@ -18,6 +18,8 @@ def B(y):
 
 def main(n = None):
     Total = 0
+    parent_total = 0
+    child_total = 0
 
     # Check for the correct number of command-line arguments
     if n is None:
@@ -40,15 +42,16 @@ def main(n = None):
         return
 
     if pid != 0:  # Parent process
-        Total += A(x)
+        parent_total += A(x) 
     else:  # Child process
-        Total += B(x)
-        os._exit(0)  # Ensure the child process terminates here
+        child_total += B(x)
+        os._exit(child_total)  # Ensure the child process terminates here
 
     # If this is the parent process, print the total summation
     if pid != 0:
+        Total = parent_total + (os.wait()[1]>>8)
         print(f"The total is: {Total}")
 
 if __name__ == "__main__":
-    n = 1
+    n = 25
     main(n)
